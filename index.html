@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para ti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Fondo animado -->
+  <div class="background"></div>
+  <div id="heart-container"></div>
+  <div class="particles"></div>
+
+  <!-- Login -->
+  <div id="login" class="card">
+    <h1>✧ contraseña ✧</h1>
+    <input type="password" id="passwordInput" placeholder="escríbela aquí">
+    <button id="enterButton">entrar</button>
+  </div>
+
+  <div id="home" class="hidden home-screen">
+
+  <div class="hero">
+    <h1 class="titulo-y2k">
+      <span>Hola</span>
+      <span class="glow">Patatoncia!!!</span>
+    </h1>
+
+    <img src="assets/alexyvic.png" alt="Alex y Vic pixel art" class="hero-img">
+  </div>
+
+  <nav class="menu">
+    <button onclick="showReloj()"><img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHJrZ2FlYnRoajhwb3JjYzdsdTIxenUwZ3piam85cjcyazAxd3VqbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/lTCbZmOmMNdJBg1LMs/giphy.gif" alt="reloj" class="icon-gif"></button>
+
+    <button onclick="showSpotify()"><img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanZxMXd5MmszdHRhNmJhOXI3bGJyOTM4MDYxZXp5bnAycnp4M3c3eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/KiOxuab3SPgFzts1bQ/giphy.gif" alt="musica" class="icon-gif"></button>
+
+    <button onclick="showMapa()"><img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDE2MGdmbXZoamswM3RyM2QxaXR2dmcxaW5iZ2dxaXF3amxkMXdnYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/NhSg0dFC5G9UYBBi9a/giphy.gif" alt="mapa" class="icon-gif"></button>
+
+    <button onclick="showFoto()"><img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDloMHJyNTRhb3dtN3QzdHd2eDIza2x3YnhlbHlhMWFqd2I2ZndqYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/3Ii2SW00oLZ8k/giphy.gif" alt="carta" class="icon-gif"></button>
+
+    <button onclick="showMagia()"><img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWI5bjN6eXNocmF5cWhmZnh4dzcwZ2FodGp4YjZhcjQ4cWMybjJlYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/NpMOXmJNHFD3IO9Xto/giphy.gif" alt="magia" class="icon-gif"></button>
+  </nav>
+
+</div>
+
+
+  <!-- Ventanas modales -->
+  <div id="modal" class="hidden modal">
+    <span id="closeModal">&times;</span>
+    <div id="modalContent"></div>
+  </div>
+
+  <div id="dialogueModal" class="hidden dialogue-modal">
+  <div class="dialogue-wrapper">
+    <img src="assets/alexdialogo.png" alt="alex hablando" class="dialogue-img">
+
+    <!-- TEXTO POSICIONADO SOBRE EL BOCADILLO -->
+    <div class="dialogue-text" id="dialogueText"></div>
+
+    <span id="closeDialogue">×</span>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
