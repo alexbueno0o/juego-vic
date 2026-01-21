@@ -8,6 +8,10 @@ const input = document.getElementById("passwordInput");
 const modal = document.getElementById("modal");
 const modalContent = document.getElementById("modalContent");
 const closeModal = document.getElementById("closeModal");
+const STATE = { heartInterval: null };
+const heart = document.getElementById("victoriaHeart");
+const counter = document.getElementById("victoriaCounter");
+
 
 /* ====== AUDIO SYSTEM ====== */
 
@@ -398,3 +402,100 @@ function stopHearts() {
 
 startHearts();
 
+/* ======== CORAZÓN DE VICTORIA (clics + overlay) ======== */
+(function() {
+  let clicks = 0;
+  const maxClicks = 5;
+
+  const victoriaNormal = "assets/victoria-cora.png";
+  const victoriaDoctora = "assets/victoria-dora.png";
+
+  // Crear contenedor del corazón de evolución (separado de otros corazones)
+  const victoriaHeartContainer = document.createElement("div");
+  victoriaHeartContainer.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 3000; /* encima de todo */
+  `;
+  victoriaHeartContainer.innerHTML = `
+    <img id="victoriaHeart" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXhwaWI3bjd5dXoxNmdtMDRhMzMyM2g5ZnNrc29rOXFtejA4dWNkNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/xT0GqvEqri5HpMJL2g/giphy.gif" style="width:80px;">
+    <div id="victoriaCounter" style="color:white; font-family:'KiwiSoda'; font-size:16px; margin-top:4px;">0/5</div>
+  `;
+  document.body.appendChild(victoriaHeartContainer);
+
+  const heart = document.getElementById("victoriaHeart");
+  const counter = document.getElementById("victoriaCounter");
+
+  // Crear overlay
+  const overlay = document.createElement("div");
+  overlay.id = "victoriaOverlay";
+  overlay.style.cssText = `
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
+    display:flex; flex-direction: column; justify-content:center; align-items:center;
+    opacity:0; visibility:hidden; transition: opacity 0.4s ease;
+    z-index:4000;
+  `;
+  overlay.innerHTML = `
+    <img id="victoriaImg" src="${victoriaNormal}" style="width:300px; border-radius:20px; box-shadow:0 10px 30px rgba(216,180,254,0.6); transition: all 0.8s ease;">
+    <p id="victoriaText" style="font-family:'KiwiSoda'; color:white; font-size:22px; margin-top:20px; text-align:center;"></p>
+    <button id="victoriaClose" style="margin-top:20px; padding:10px 25px; border-radius:20px; border:none; background:linear-gradient(135deg,#f9a8d4,#c4b5fd); color:white; cursor:pointer;">Cerrar</button>
+  `;
+  document.body.appendChild(overlay);
+
+  const victoriaImg = document.getElementById("victoriaImg");
+  const victoriaText = document.getElementById("victoriaText");
+  const victoriaClose = document.getElementById("victoriaClose");
+
+  victoriaClose.addEventListener("click", () => {
+    overlay.style.opacity = "0";
+    overlay.style.visibility = "hidden";
+    victoriaImg.src = victoriaNormal;
+    victoriaText.textContent = "";
+    clicks = 0;
+    counter.textContent = `0/${maxClicks}`;
+    victoriaImg.style.transform = "scale(1)";
+  });
+
+  function triggerTransformation() {
+    overlay.style.opacity = "1";
+    overlay.style.visibility = "visible";
+    victoriaImg.src = victoriaNormal;
+    victoriaText.textContent = "";
+    victoriaImg.style.transform = "scale(1)";
+    victoriaImg.style.opacity = "1";
+
+    const message = "El nivel de cursi es tan alto que Victoria está evolucionando... 1... 2... 3!!!";
+    let i = 0;
+
+    const interval = setInterval(() => {
+      victoriaText.textContent += message[i];
+      i++;
+      if (i >= message.length) {
+        clearInterval(interval);
+
+        setTimeout(() => {
+          victoriaImg.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+          victoriaImg.style.opacity = "0";
+          victoriaImg.style.transform = "scale(0.5)";
+          setTimeout(() => {
+            victoriaImg.src = victoriaDoctora;
+            victoriaImg.style.opacity = "1";
+            victoriaImg.style.transform = "scale(1.2)";
+            setTimeout(() => { victoriaImg.style.transform = "scale(1)"; }, 500);
+          }, 800);
+        }, 1000);
+      }
+    }, 80);
+  }
+
+  heart.addEventListener("click", () => {
+    clicks++;
+    counter.textContent = `${clicks}/${maxClicks}`;
+    if (clicks >= maxClicks) triggerTransformation();
+  });
+
+})();
