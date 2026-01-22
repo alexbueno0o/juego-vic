@@ -60,7 +60,6 @@ button:hover{transform:scale(1.08);box-shadow:0 10px 30px rgba(216,180,254,0.7);
 @keyframes loginExit {to{opacity:0; transform:scale(0.9) translateY(-30px);}}
 
 /* Menú */
-.menu {height:100vh; display:grid; grid-template-columns:repeat(3,100px); grid-gap:40px; justify-content:center; align-content:center;}
 .icon {width:90px;height:90px;font-size:42px;background:rgba(255,255,255,0.55);backdrop-filter:blur(10px);border-radius:30px;display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,0.15);opacity:0;transform:scale(0.5);animation:iconEnter 0.8s ease forwards;}
 .icon:hover{transform:scale(1.15);}
 .icon:nth-child(1){animation-delay:0.2s;} .icon:nth-child(2){animation-delay:0.3s;} .icon:nth-child(3){animation-delay:0.4s;} .icon:nth-child(4){animation-delay:0.5s;} .icon:nth-child(5){animation-delay:0.6s;} .icon:nth-child(6){animation-delay:0.7s;}
@@ -157,9 +156,9 @@ button:hover{transform:scale(1.08);box-shadow:0 10px 30px rgba(216,180,254,0.7);
 
 
 .home-screen {
-  min-height: 100vh; /* sigue ocupando mínimo la ventana */
-  padding-top: -10px;
-  padding-bottom: 60px; /* agregar espacio abajo */
+  min-height: auto; /* sigue ocupando mínimo la ventana */
+  padding-top: 0px;
+  padding-bottom: -60px; /* agregar espacio abajo */
   text-align: center;
   animation: fadeIn 1.5s ease;
 }
@@ -212,7 +211,7 @@ button:hover{transform:scale(1.08);box-shadow:0 10px 30px rgba(216,180,254,0.7);
   display: flex;
   justify-content: center;
   gap: 26px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 }
 
 .menu button {
@@ -535,4 +534,191 @@ button:hover{transform:scale(1.08);box-shadow:0 10px 30px rgba(216,180,254,0.7);
   padding: 30px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(216,180,254,0.5);
+}
+
+.dialogue-modal.hidden {
+  display: none;
+}
+
+/* ==========================
+   CONTAINER GENERAL DEL JUEGO
+========================== */
+#juegoVictoria {
+  position: relative;
+  width: 100%;
+  min-height: 70vh;              /* ocupa casi toda la pantalla */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding-top: 6vh;
+  padding-bottom: 6vh;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.18),
+    rgba(255,255,255,0.05)
+  );
+
+  backdrop-filter: blur(14px);
+  border-radius: 30px;
+  box-shadow: 0 30px 80px rgba(216,180,254,0.35);
+}
+
+/* ==========================
+   IMAGEN DE VICTORIA
+========================== */
+#victoriaGameImg {
+  width: 70vw;          /* controla tamaño REAL */
+  max-width: 900px;     /* límite en pantallas grandes */
+  min-width: 400px;     /* nunca pequeña */
+
+  height: auto;
+  display: block;
+
+  margin: 0 auto 40px;
+
+  border-radius: 30px;
+
+  box-shadow:
+    0 30px 80px rgba(216,180,254,0.6),
+    0 0 0 8px rgba(255,255,255,0.18);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#victoriaGameImg:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 40px 100px rgba(216,180,254,0.75),
+    0 0 0 10px rgba(255,255,255,0.25);
+}
+
+/* ==========================
+   OBJETOS ARRASABLES
+========================== */
+.draggable {
+  width: 140px;
+  height: 140px;
+
+  object-fit: contain;      /* PROPORCIÓN CORRECTA */
+  cursor: grab;
+
+  background: rgba(255,255,255,0.25);
+  border-radius: 20px;
+
+  box-shadow:
+    0 15px 35px rgba(216,180,254,0.45),
+    inset 0 0 12px rgba(255,255,255,0.4);
+
+  transition: transform 0.2s ease;
+}
+
+.draggable:active {
+  cursor: grabbing;
+  transform: scale(1.12);
+}
+
+.draggable:active {
+  cursor: grabbing;
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(216,180,254,0.6);
+}
+
+/* ==========================
+   CONTENEDOR DE OBJETOS
+========================== */
+#juegoVictoria .game-container {
+  width: 100%;
+  max-width: 900px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+  padding: 30px;
+
+
+}
+
+/* ==========================
+   BOTÓN CERRAR
+========================== */
+#closeGameDialogue {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 36px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+#closeGameDialogue:hover {
+  color: #f9a8d4;
+  transform: scale(1.2);
+}
+
+/* ==========================
+   ANIMACIONES SUTILES DE FLOTACIÓN
+========================== */
+@keyframes floatObject {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.draggable {
+  animation: floatObject 3s ease-in-out infinite;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+@media (max-width: 1000px) {
+  #victoriaGameImg { width: 70%; }
+  .draggable { width: 100px; height: 100px; }
+}
+
+@media (max-width: 700px) {
+  #victoriaGameImg { width: 80%; }
+  .draggable { width: 90px; height: 90px; }
+}
+
+@media (max-width: 500px) {
+  #victoriaGameImg { width: 90%; }
+  .draggable { width: 80px; height: 80px; }
+}
+
+
+.energy-bar {
+  width: 420px;       /* ANCHO DE LA BARRA */
+  height: 26px;       /* ALTURA */
+  margin: 0 auto 12px;
+
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  overflow: hidden;
+
+  box-shadow:
+    inset 0 0 8px rgba(0,0,0,0.4),
+    0 6px 18px rgba(0,0,0,0.3);
+}
+
+#victoriaEnergyBar {
+  height: 100%;
+  width: 0%;
+
+  background: linear-gradient(
+    90deg,
+    #22c55e,
+    #4ade80,
+    #86efac
+  );
+
+  border-radius: 14px;
+  transition: width 0.4s ease;
 }

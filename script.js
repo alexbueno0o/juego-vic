@@ -499,3 +499,76 @@ startHearts();
   });
 
 })();
+
+const jugarButton = document.getElementById("jugarButton");
+const juegoDiv = document.getElementById("juegoVictoria");
+const victoriaImg = document.getElementById("victoriaGameImg");
+const energyBar = document.getElementById("victoriaEnergyBar");
+const percentageText = document.getElementById("victoriaPercentage");
+
+// Fotos de Victoria según cansancio
+const victoriaFaces = [
+  "assets/cansancio4.png", // 0-20%
+  "assets/cansancio3.png", // 20-40%
+  "assets/cansancio2.png", // 40-60%
+  "assets/cansancio1.png", // 60-80%
+  "assets/cansancio0.png"  // 80-100%
+];
+
+let energia = 0;
+
+// Diálogo inicial
+const gameDialogue = document.getElementById("gameDialogue");
+const gameDialogueText = document.getElementById("gameDialogueText");
+const closeGameDialogue = document.getElementById("closeGameDialogue");
+
+jugarButton.addEventListener("click", () => {
+  juegoDiv.classList.remove("hidden");
+
+  gameDialogue.classList.remove("hidden");
+  const message = "La pobrecita de Victoria está agotadísima de tanto estudiar, vamos a subirle la energía arrastrando los distintos objetos :)";
+  gameDialogueText.innerHTML = "";
+  let index = 0;
+  const interval = setInterval(() => {
+    gameDialogueText.innerHTML += message[index];
+    index++;
+    if(index >= message.length){
+      clearInterval(interval);
+    }
+  }, 40);
+});
+
+// cerrar diálogo
+closeGameDialogue.addEventListener("click", () => {
+  gameDialogue.classList.add("hidden");
+});
+
+// Drag and drop
+const draggables = document.querySelectorAll(".draggable");
+
+draggables.forEach(item => {
+  item.addEventListener("dragstart", e => {
+    e.dataTransfer.setData("text/plain", item.dataset.value);
+  });
+});
+
+victoriaImg.addEventListener("dragover", e => {
+  e.preventDefault();
+});
+
+victoriaImg.addEventListener("drop", e => {
+  e.preventDefault();
+  const value = parseInt(e.dataTransfer.getData("text/plain"));
+  energia += value;
+  if(energia < 0) energia = 0;
+  if(energia > 100) energia = 100;
+
+  // Actualizar barra y porcentaje
+  energyBar.style.width = energia + "%";
+  percentageText.textContent = energia + "%";
+
+  // Cambiar foto según porcentaje
+  let index = Math.floor(energia / 20);
+  if(index > victoriaFaces.length - 1) index = victoriaFaces.length - 1;
+  victoriaImg.src = victoriaFaces[index];
+});

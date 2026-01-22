@@ -41,7 +41,12 @@
     <button onclick="showFoto()"><img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDloMHJyNTRhb3dtN3QzdHd2eDIza2x3YnhlbHlhMWFqd2I2ZndqYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/3Ii2SW00oLZ8k/giphy.gif" alt="carta" class="icon-gif"></button>
 
     <button onclick="showMagia()"><img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWI5bjN6eXNocmF5cWhmZnh4dzcwZ2FodGp4YjZhcjQ4cWMybjJlYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/NpMOXmJNHFD3IO9Xto/giphy.gif" alt="magia" class="icon-gif"></button>
+
+
+    <button id="jugarButton" class="big-play-button">JUGAR</button>
+
   </nav>
+
 
 </div>
 
@@ -63,6 +68,38 @@
   </div>
 </div>
 
+<!-- Contenedor del juego (inicialmente oculto) -->
+<div id="juegoVictoria" class="hidden home-screen">
+  <!-- Diálogo inicial -->
+  <div id="gameDialogue" class="dialogue-modal hidden">
+    <div class="dialogue-wrapper">
+      <img src="assets/alexdialogo.png" alt="alex hablando" class="dialogue-img">
+      <div class="dialogue-text" id="gameDialogueText"></div>
+      <span id="closeGameDialogue">×</span>
+    </div>
+  </div>
+
+  <!-- Juego -->
+  <div class="game-container" style="display:flex; justify-content:center; gap:40px; align-items:flex-start; padding-top:50px;">
+    <!-- Victoria y barra -->
+    <div style="text-align:center;">
+      <img id="victoriaGameImg" src="assets/cansancio4.png">
+      <div class="energy-bar">
+      <div id="victoriaEnergyBar"></div>
+      </div>
+      <div id="victoriaPercentage" style="color:white; font-family:'KiwiSoda'; font-size:18px;">0%</div>
+    </div>
+
+    <!-- Objetos -->
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      <img src="assets/beso.png" class="draggable" draggable="true" data-value="10" title="Beso">
+      <img src="assets/suhsi.png" class="draggable" draggable="true" data-value="20" title="Sushi">
+      <img src="assets/vino.png" class="draggable" draggable="true" data-value="5" title="Vino">
+      <img src="assets/cachimba.png" class="draggable" draggable="true" data-value="-40" title="Cachimba">
+      <img src="assets/cafe.png" class="draggable" draggable="true" data-value="15" title="Café">
+    </div>
+  </div>
+</div>
 
 
   <script src="script.js"></script>
